@@ -8,7 +8,9 @@
 		$root = realpath(__DIR__) . '/../';
 
 		require_once $root . 'Koala/Interfaces/Singleton.php';
+		require_once $root . 'Koala/Interfaces/Hookable.php';
 
+		require_once $root . 'Koala/Hooker.php';
 		require_once $root . 'Koala/Registry.php';
 		require_once $root . 'Koala/App.php';
 

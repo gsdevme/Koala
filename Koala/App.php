@@ -2,10 +2,11 @@
 
 	namespace Koala;
 
-	use \Koala\Interfaces\Singleton as Singleton;
-	use \Koala\Registry as Registry;
+	use \Koala\Interfaces\Singleton;
+	use \Koala\Interfaces\Hookable;
+	use \Koala\Registry;
 
-	class App implements Singleton
+	class App implements Singleton, Hookable
 	{
 
 		private static $_instance;
@@ -36,6 +37,11 @@
 			return self::$_instance;
 		}
 
+		/**
+		 * [setConfiguration description]
+		 * 
+		 * @param array $options
+		 */
 		public function setConfiguration(array $options)
 		{
 			$options = (object)$options;
@@ -43,6 +49,6 @@
 
 		public function run()
 		{
-			
+
 		}
 	}
