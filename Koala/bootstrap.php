@@ -8,18 +8,19 @@
 		$root = realpath(__DIR__) . '/../';
 
 		require_once $root . 'Koala/Interfaces/Singleton.php';
-		
+
 		require_once $root . 'Koala/Registry.php';
 		require_once $root . 'Koala/App.php';
 
 		$registry = \Koala\Registry::getInstance();
 
 		$registry->set('benchmark', microtime(true));
-		$registry->set('memoryUsage', memory_get_usage());
+		$registry->set('memory', memory_get_usage());
+		$registry->set('root', $root);
 
 		unset($registry, $root);
 	};
 
 	$bootstrap();
 
-	echo '<pre>' . print_r(\Koala\Registry::getInstance(), true) . '</pre>';
+	unset($bootstrap);

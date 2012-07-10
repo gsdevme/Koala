@@ -36,4 +36,13 @@
 			return self::$_instance;
 		}
 
+		public function setConfiguration(array $options)
+		{
+			$options = (object)$options;
+		}
+
+		public function run()
+		{
+			
+		}
 	}
