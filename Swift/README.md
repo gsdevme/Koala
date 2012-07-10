@@ -1,0 +1,1 @@
+Swift is perhaps the best mailer for PHP

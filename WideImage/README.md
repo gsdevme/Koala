@@ -1,0 +1,1 @@
+WideImage is a nice GD library for images
