@@ -12,6 +12,8 @@
 
 		require_once $root . 'Koala/Hooker.php';
 		require_once $root . 'Koala/Registry.php';
+		require_once $root . 'Koala/Http/Request.php';
+		require_once $root . 'Koala/Http/Router.php';
 		require_once $root . 'Koala/App.php';
 
 		$registry = \Koala\Registry::getInstance();

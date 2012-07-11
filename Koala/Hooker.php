@@ -3,17 +3,25 @@
 	namespace Koala;
 
 	use \Koala\Interfaces\Hookable;
+	use \Koala\Registry;
 
 	class Hooker
 	{
 
-		private $_object;
+		const AFTER='after';
 
-		public function __construct($instance)
+		private $_object;
+		private $_hooks;
+		private $_class;
+
+		public function __construct($instance, Registry $registry)
 		{
 			// This seems to work for interfaces (although really it shouldn't)
 			if($instance instanceof Hookable){
 				$this->_object = $instance;
+
+				$this->_class = get_class($instance);
+				$this->_hooks = $registry->get('hooks');
 				return;
 			}
 
@@ -23,6 +31,22 @@
 
 		public function __call($method, array $arguments)
 		{
+			$hookKey = md5($this->_class . '::' . $method);
+
+			if(isset($this->_hooks->$hookKey)){
+				$hook = $this->_hooks->$hookKey;
+				$hookPoint = $hook->point;
+
+				if($hookPoint == Hooker::AFTER){
+
+					$return = call_user_func_array(array($this->_object, $method), $arguments);
+					$callback = $hook->callback;
+
+					return $callback($return);
+				}
+			}
+			
+
 			return call_user_func_array(array($this->_object, $method), $arguments);
 		}
 

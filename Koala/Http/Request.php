@@ -2,7 +2,13 @@
 
 	namespace Koala\Http;
 
-	class Request
+	use \Koala\Interfaces\Hookable;
+
+	class Request implements Hookable
 	{
 
+		public function getRequest()
+		{
+			return '/user/1';
+		}
 	}

@@ -6,10 +6,14 @@
 
 	require_once __DIR__ . '/../../Koala/bootstrap.php';	
 
-	$app = new Hooker(new App(Registry::getInstance()));
+	$app = new App(Registry::getInstance());
 
 	$app->setConfiguration(array(
 		'mode' => 'debug'
 	));
+
+	$app->hook('after://Koala\Http\Request::getRequest', function($request){
+		echo '<pre>' . print_r('You have just been hooked' . $request, true) . '</pre>';
+	});
 
 	$app->run();
