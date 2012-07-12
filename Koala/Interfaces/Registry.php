@@ -2,6 +2,9 @@
 
 	namespace Koala\Interfaces;
 
+	/**
+	 * Interface for registry
+	 */
 	interface Registry
 	{
 

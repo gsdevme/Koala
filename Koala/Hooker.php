@@ -2,6 +2,10 @@
 
 	namespace Koala;
 
+	/**
+	 * This is how the Hooks work, basically a class 
+	 * infront of every hookable class
+	 */
 	class Hooker
 	{
 

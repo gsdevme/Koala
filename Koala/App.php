@@ -16,7 +16,7 @@
 		public function __construct(Interfaces\Registry $registry=null)
 		{
 			$this->_registry = $registry;
-			$this->_registry->hooks = (object)array();
+			$this->_registry->set('hooks', (object)array());
 		}
 
 		/**
@@ -80,7 +80,7 @@
 		{
 			$methodHash = md5($methodNS);
 
-			$this->_registry->hooks->$methodHash = (object)array(
+			$this->_registry->get('hooks')->$methodHash = (object)array(
 				'point' => $point,
 				'methodNS' => $methodNS,
 				'callback' => $callback
