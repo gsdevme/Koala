@@ -21,17 +21,17 @@
 				$this->_object = $instance;
 
 				$this->_class = get_class($instance);
+
 				$this->_hooks = $registry->get('hooks');
 				return;
 			}
 
-			// @todo replace with exception
-			die('not hookable');
+			throw new Exceptions\NotHookableException($this->_class . ' does not implement a hookable interface, therefore its not hookable');
 		}
 
 		public function __call($method, array $arguments)
 		{
-			$hookKey = md5($this->_class . '::' . $method);
+			$hookKey = md5($this->_class . '->' . $method);
 
 			if(isset($this->_hooks->$hookKey)){
 				$hook = $this->_hooks->$hookKey;
