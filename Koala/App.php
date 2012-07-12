@@ -2,13 +2,7 @@
 
 	namespace Koala;
 
-	use \Koala\Interfaces\Singleton;
-
-	use \Koala\Registry;
-	use \Koala\Hooker;
-	use \Koala\Http\Request;
-
-	class App implements Singleton
+	class App implements Interfaces\Singleton
 	{
 
 		private static $_instance;
@@ -19,7 +13,7 @@
 		 * 
 		 * @param Registry $registry=null
 		 */
-		public function __construct(Registry $registry=null)
+		public function __construct(Interfaces\Registry $registry=null)
 		{
 			$this->_registry = $registry;
 			$this->_registry->hooks = (object)array();
@@ -31,7 +25,7 @@
 		 * @param  Registry $registry=null
 		 * @return App
 		 */
-		public static function getInstance(Registry $registry=null)
+		public static function getInstance(Interfaces\Registry $registry=null)
 		{
 			if(!self::$_instance instanceof self){
 				self::$_instance = new self($registry);
@@ -97,7 +91,7 @@
 
 		public function run()
 		{
-			$request = new Hooker(new Request($_SERVER, $this->_registry), $this->_registry);
+			$request = new Hooker(new Http\Request($_SERVER, $this->_registry), $this->_registry);
 
 			$request->getRequest();
 		}

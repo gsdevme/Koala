@@ -2,9 +2,6 @@
 
 	namespace Koala;
 
-	use \Koala\Interfaces\Hookable;
-	use \Koala\Registry;
-
 	class Hooker
 	{
 
@@ -21,18 +18,12 @@
 		 * @param Hooker   $instance
 		 * @param Registry $registry
 		 */
-		public function __construct($instance, Registry $registry)
+		public function __construct(Interfaces\Hookable $instance, Interfaces\Registry $registry)
 		{
-			// This seems to work for interfaces (although really it shouldn't)
-			if($instance instanceof Hookable){
-				$this->_object = $instance;
-				$this->_class = get_class($instance);
+			$this->_object = $instance;
+			$this->_class = get_class($instance);
 
-				$this->_hooks = $registry->get('hooks');
-				return;
-			}
-
-			throw new Exceptions\NotHookableException($this->_class . ' does not implement a hookable interface, therefore its not hookable');
+			$this->_hooks = $registry->get('hooks');
 		}
 
 		/**

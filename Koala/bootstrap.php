@@ -9,6 +9,7 @@
 
 		// Some keys files, everything is required for any bit of Koala to work
 		require_once $root . 'Koala/Interfaces/Singleton.php';
+		require_once $root . 'Koala/Interfaces/Registry.php';
 		require_once $root . 'Koala/Interfaces/Hookable.php';
 
 		require_once $root . 'Koala/Hooker.php';
@@ -43,17 +44,9 @@
 		spl_autoload_register(function($class) use ($root){
 			$file = $root . str_replace('\\', '/', $class) . '.php';
 
-			/**
-			 * You might think running file_exists() before is a good idea... but really only in debug 
-			 * mode should you be missing so rather have the performance gain of not running file_exists
-			 *
-			 * Unless running code within a try/catch is slower? shouldnt think so though :)
-			 */
-			try{
+			if(file_exists($file)){
 				return require $file;
-			}catch(\Exception $e){ }
-
-			return (bool)false;			
+			}
 		}, true);
 
 		// Please sir.. can i have some memory

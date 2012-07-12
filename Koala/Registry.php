@@ -2,7 +2,7 @@
 
 	namespace Koala;
 
-	class Registry
+	class Registry implements Interfaces\Singleton, Interfaces\Registry
 	{
 
 		private static $_instance;
