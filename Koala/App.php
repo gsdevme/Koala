@@ -50,6 +50,13 @@
 			$options = (object)$options;
 		}
 
+		/**
+		 * [hook description]
+		 * 
+		 * @param  String   $hook
+		 * @param  callable $callback
+		 * @return mixed
+		 */
 		public function hook($hook, $callback)
 		{
 			$hookPoint = strtolower(strstr($hook, '://', true));
@@ -68,6 +75,13 @@
 			return $this->_addHook($hookPoint, $methodNS, $callback);
 		}
 
+		/**
+		 * [_addHook description]
+		 * 
+		 * @param string   $point
+		 * @param string   $methodNS
+		 * @param callable $callback
+		 */
 		private function _addHook($point, $methodNS, $callback)
 		{
 			$methodHash = md5($methodNS);
