@@ -2,7 +2,7 @@
 
 	namespace Koala;
 
-	class App implements Interfaces\Singleton
+	class App
 	{
 
 		private $_registry;
