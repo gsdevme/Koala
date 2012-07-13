@@ -9,8 +9,8 @@
 	{
 
 		public static function getInstance();
-		public function __construct();
+		public function __clone();
 
 		public function get($key);
-		public function set($key, $value);		
+		public function set($key, $value);
 	}

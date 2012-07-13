@@ -2,25 +2,46 @@
 
 	namespace Koala;
 
+	use \LogicException;
+
 	/**
-	 * 
+	 *
 	 */
-	class Registry implements Interfaces\Singleton, Interfaces\Registry
+	class Registry implements Interfaces\Registry
 	{
 
 		private static $_instance;
 		private $_registry;
 
-		public function __construct()
+		/**
+		 * [__construct description]
+		 * @author github:gsdevme, twitter:@gsphpdev
+		 * @since 0.1 Alpha
+		 */
+		private function __construct()
 		{
-			$this->_registry = (object)array(
-
-				// This is public... in the sense the application should be setting & getting here
-				'public' => (object)array(),
-				'private' => (object)array()
-			);
+			$this->_registry = (object)array();
 		}
 
+		/**
+		 * [__clone description]
+		 * @author github:gsdevme, twitter:@gsphpdev
+		 * @since 0.1 Alpha
+		 *
+		 * @return [type] [description]
+		 */
+		public function __clone()
+		{
+			throw new LogicException('Cloning is not allowed, Singleton Pattern');
+		}
+
+		/**
+		 * [getInstance description]
+		 * @author github:gsdevme, twitter:@gsphpdev
+		 * @since 0.1 Alpha
+		 *
+		 * @return [type] [description]
+		 */
 		public static function getInstance()
 		{
 			if(!self::$_instance instanceof self){
@@ -30,24 +51,45 @@
 			return self::$_instance;
 		}
 
+		/**
+		 * [get description]
+		 * @author github:gsdevme, twitter:@gsphpdev
+		 * @since 0.1 Alpha
+		 *
+		 * @param [type] $key [description]
+		 *
+		 * @return [type]  [description]
+		 */
 		public function get($key)
 		{
-			return $this->_registry->public->$key;
+			return (isset($this->_registry->$key)) ? $this->_registry->$key : null;
 		}
 
+		/**
+		 * [set description]
+		 * @author github:gsdevme, twitter:@gsphpdev
+		 * @since 0.1 Alpha
+		 *
+		 * @param [type] $key [description]
+		 * @param [type] $value [description]
+		 */
 		public function set($key, $value)
 		{
-			return $this->_registry->public->$key = $value;
+			return $this->_registry->$key = $value;
 		}
 
-		public function getPrivate($key)
+		/**
+		 * [__isset description]
+		 * @author github:gsdevme, twitter:@gsphpdev
+		 * @since 0.1 Alpha
+		 *
+		 * @param [type] $key [description]
+		 *
+		 * @return boolean  [description]
+		 */
+		public function __isset($key)
 		{
-			return $this->_registry->private->$key;
-		}
-
-		public function setPrivate($key, $value)
-		{
-			$this->_registry->private->$key = $value;
+			return (bool)isset($this->_registry->$key);
 		}
 
 	}
