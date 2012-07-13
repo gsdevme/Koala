@@ -5,13 +5,14 @@
 	class App implements Interfaces\Singleton
 	{
 
-		private static $_instance;
 		private $_registry;
 
 		/**
 		 * [__construct description]
-		 * 
-		 * @param Registry $registry=null
+		 * @author github:gsdevme, twitter:@gsphpdev
+		 * @since 0.1 Alpha
+		 *
+		 * @param [type] $registry=null [description]
 		 */
 		public function __construct(Interfaces\Registry $registry=null)
 		{
@@ -20,24 +21,11 @@
 		}
 
 		/**
-		 * [getInstance description]
-		 * 
-		 * @param  Registry $registry=null
-		 * @return App
-		 */
-		public static function getInstance(Interfaces\Registry $registry=null)
-		{
-			if(!self::$_instance instanceof self){
-				self::$_instance = new self($registry);
-			}
-
-			return self::$_instance;
-		}
-
-		/**
 		 * [setConfiguration description]
-		 * 
-		 * @param array $options
+		 * @author github:gsdevme, twitter:@gsphpdev
+		 * @since 0.1 Alpha
+		 *
+		 * @param array $options [description]
 		 */
 		public function setConfiguration(array $options)
 		{
@@ -46,10 +34,13 @@
 
 		/**
 		 * [hook description]
-		 * 
-		 * @param  String   $hook
-		 * @param  callable $callback
-		 * @return mixed
+		 * @author github:gsdevme, twitter:@gsphpdev
+		 * @since 0.1 Alpha
+		 *
+		 * @param [type] $hook [description]
+		 * @param function $callback [description]
+		 *
+		 * @return [type]  [description]
 		 */
 		public function hook($hook, $callback)
 		{
@@ -59,22 +50,22 @@
 				case 'before':
 					break;
 				case 'after':
-					break;	
+					break;
 				default:
 					throw new InvalidHookPointException('Only before:// and after:// are supported for hook points.');
 			}
 
-			$methodNS = substr(strstr($hook, '://'), 3);
-
-			return $this->_addHook($hookPoint, $methodNS, $callback);
+			return $this->_addHook($hookPoint, substr(strstr($hook, '://'), 3), $callback);
 		}
 
 		/**
 		 * [_addHook description]
-		 * 
-		 * @param string   $point
-		 * @param string   $methodNS
-		 * @param callable $callback
+		 * @author github:gsdevme, twitter:@gsphpdev
+		 * @since 0.1 Alpha
+		 *
+		 * @param [type] $point [description]
+		 * @param [type] $methodNS [description]
+		 * @param function $callback [description]
 		 */
 		private function _addHook($point, $methodNS, $callback)
 		{
@@ -89,6 +80,13 @@
 			return (bool)true;
 		}
 
+		/**
+		 * [run description]
+		 * @author github:gsdevme, twitter:@gsphpdev
+		 * @since 0.1 Alpha
+		 *
+		 * @return [type] [description]
+		 */
 		public function run()
 		{
 			$request = new Hooker(new Http\Request($_SERVER, $this->_registry), $this->_registry);
