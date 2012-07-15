@@ -16,20 +16,25 @@
 
 		/**
 		 * [__construct description]
+		 * @author github:gsdevme, twitter:@gsphpdev
+		 * @since 0.1 Alpha
+		 *
 		 * @param Interfaces\Registry $registry [description]
 		 */
 		public function __construct(Interfaces\Registry $registry)
 		{
 			$this->_root = $registry->get('root');
 
-			spl_autoload_register(array($this, '_autoloader'), true);		
+			spl_autoload_register(array($this, '_autoloader'), true);
 		}
 
 		/**
 		 * [add description]
-		 * 
-		 * @param string $class
-		 * @param string $directory
+		 * @author github:gsdevme, twitter:@gsphpdev
+		 * @since 0.1 Alpha
+		 *
+		 * @param [type] $class [description]
+		 * @param [type] $directory [description]
 		 */
 		public function add($class, $directory)
 		{
@@ -38,38 +43,49 @@
 
 		/**
 		 * [addPrefix description]
-		 * 
-		 * @param string $class
-		 * @param string $directory
+		 * @author github:gsdevme, twitter:@gsphpdev
+		 * @since 0.1 Alpha
+		 *
+		 * @param [type] $class [description]
+		 * @param [type] $directory [description]
+		 * @param boolean $setIncludePath=false [description]
 		 */
 		public function addPrefix($class, $directory, $setIncludePath=false)
 		{
+			if($setIncludePath !== false){
+				set_include_path($this->_root . $directory);
+			}
+
 			if(strpos($class, '_')){
-				if($setIncludePath !== false){
-					set_include_path($this->_root . $directory);
-				}
+
 
 				return $this->_prefixMap[md5(strstr($class, '_', true) . '_')] = $this->_root . $directory;
 			}
 
 			if(strpos($class, '\\')){
-				if($setIncludePath !== false){
-					set_include_path($this->_root . $directory);
-				}
+				$strstr = function($val){
+					return strstr($class, '\\', true) . '\\';
+				};
+			}
 
-				return $this->_prefixMap[md5(strstr($class, '\\', true) . '_')] = $this->_root . $directory;
-			}		
+			if(isset($strstr)){
+				return $this->_prefixMap[md5($strstr($class))] = $this->_root . $directory;
+			}
+
+			// @todo we need to throw an exception
 		}
 
 		/**
 		 * [_autoloader description]
-		 * 
-		 * @param  string $class
+		 * @author github:gsdevme, twitter:@gsphpdev
+		 * @since 0.1 Alpha
+		 *
+		 * @param [type] $class [description]
+		 *
+		 * @return [type]  [description]
 		 */
 		private function _autoloader($class)
 		{
-			var_dump($class);
-
 			// Check for Prefix Map
 			if(strpos($class, '_')){
 				$hash = md5(strstr($class, '_', true) . '_');
@@ -101,10 +117,5 @@
 					return require $file;
 				}
 			}
-		}
-
-		private function _require()
-		{
-
 		}
 	}
