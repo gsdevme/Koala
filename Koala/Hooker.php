@@ -3,7 +3,7 @@
 	namespace Koala;
 
 	/**
-	 * This is how the Hooks work, basically a class 
+	 * This is how the Hooks work, basically a class
 	 * infront of every hookable class
 	 */
 	class Hooker
@@ -18,7 +18,7 @@
 
 		/**
 		 * [__construct description]
-		 * 
+		 *
 		 * @param Hooker   $instance
 		 * @param Registry $registry
 		 */
@@ -32,7 +32,7 @@
 
 		/**
 		 * [__call description]
-		 * 
+		 *
 		 * @param  string $method
 		 * @param  array  $arguments
 		 * @return mixed
@@ -55,14 +55,14 @@
 					return $callback($return);
 				}
 			}
-			
+
 
 			return call_user_func_array(array($this->_object, $method), $arguments);
 		}
 
 		/**
 		 * [__set description]
-		 * 
+		 *
 		 * @param string $key
 		 * @param mixed $value
 		 * @return  bool
@@ -74,7 +74,7 @@
 
 		/**
 		 * [__get description]
-		 * 
+		 *
 		 * @param  string $key
 		 * @return  mixed
 		 */
@@ -85,7 +85,7 @@
 
 		/**
 		 * [__isset description]
-		 * 
+		 *
 		 * @param  string  $name
 		 * @return boolean
 		 */
