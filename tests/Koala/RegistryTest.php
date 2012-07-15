@@ -5,6 +5,8 @@
 	require_once realpath(__DIR__) . '/../../Koala/Interfaces/Registry.php';
 	require_once realpath(__DIR__) . '/../../Koala/Registry.php';
 
+	use \Koala\Registry;
+
 	class RegistryTest extends \PHPUnit_Framework_TestCase
 	{
 
@@ -12,7 +14,7 @@
 
 		public function setUp()
 		{
-			$this->_registry = \Koala\Registry::getInstance();
+			$this->_registry = Registry::getInstance();
 		}
 
 		/**
