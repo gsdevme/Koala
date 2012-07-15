@@ -87,10 +87,12 @@
 		 *
 		 * @return [type] [description]
 		 */
-		public function run()
+		public function run(Interfaces\Http\Request $request)
 		{
-			$request = new Hooker(new Http\Request($_SERVER, $this->_registry), $this->_registry);
+			$request = new Hooker($request, $this->_registry);
 
 			$request->getRequest();
+
+			var_dump('Completed');
 		}
 	}
