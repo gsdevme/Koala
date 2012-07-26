@@ -25,8 +25,11 @@
 		public function __construct(Interfaces\Hookable $instance, Interfaces\Registry $registry)
 		{
 			$this->_object = $instance;
+
+			// gets the class name
 			$this->_class = get_class($instance);
 
+			// Copies all the hooks into the hooker instance
 			$this->_hooks = $registry->get('hooks');
 		}
 
@@ -39,7 +42,8 @@
 		 */
 		public function __call($method, array $arguments)
 		{
-			$hookKey = md5($this->_class . '->' . $method);
+			// Create a checksum
+			$hookKey = sprintf('%u', crc32($this->_class . '->' . $method));
 
 			if(isset($this->_hooks->$hookKey)){
 				$hook = $this->_hooks->$hookKey;

@@ -69,7 +69,7 @@
 		 */
 		private function _addHook($point, $methodNS, $callback)
 		{
-			$methodHash = md5($methodNS);
+			$methodHash = sprintf('%u', crc32($methodNS));
 
 			$this->_registry->get('hooks')->$methodHash = (object)array(
 				'point' => $point,

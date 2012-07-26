@@ -13,31 +13,28 @@
 		'mode' => 'debug'
 	));
 
+	$classMap = new \Koala\ClassMap($registry);
+	$classMap->addPrefix('Zend_', 'Libraries/', true);
+
+	// lets test we can use Zends json... not that we want it .. Yuk!
+	$x = Zend_Json::encode(array('foo' => 1));
+
+	if($x == '{"foo":1}'){
+		echo '<pre>' . print_r('Zends JSON loaded correct', true) . '</pre>' . PHP_EOL;
+	}
+
 	// Pass $_SERVER, the ability to pass the $_SERVERS help you mock stuff, if NULL it will grab $_SERVER
 	$environment = new \Koala\Environment($_SERVER);
+
+	/**
+	 * Hook example
+	 */
+	$app->hook('after://Koala\Http\Request->getRequest', function($request){
+		echo '<pre>' . print_r('You have just been hooked ' . $request, true) . '</pre>' . PHP_EOL;
+	});
 
 	// Pass the environment to the request
 	$request = new \Koala\Http\Request($environment);
 
 	$app->run($request);
-
-	/**
-	 * Using the classMap is only for third party stuff, if you dont
-	 * use it dont create an instance
-	 */
-	//$classMap = new ClassMap(Registry::getInstance());
-
-	// $classMap->add('Zend_Json', 'Libraries/'); Maps Zend_Json direct to Libraries/, so that translates to Libraries/Zend/Json.php (class: Zend_Json)
-
-	// Because Zend runs off and requires() loads of files you need TRUE, however it zend didnt then it wouldnt
-	//$classMap->addPrefix('Zend_', 'Libraries/', true);
-
-	//$x = new Zend_Json();
-	//var_dump($x);
-
-	/*$app->hook('after://Koala\Http\Request->getRequest', function($request){
-		echo '<pre>' . print_r('You have just been hooked ' . $request, true) . '</pre>' . PHP_EOL;
-	});
-
-	var_dump($app);*/
 
