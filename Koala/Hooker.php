@@ -46,7 +46,7 @@
 		public function __call($method, array $arguments)
 		{
 			// Create a checksum
-			$hookKey = sprintf('%u', crc32($this->_class . '->' . $method));
+			$hookKey = 'hook' . sprintf('%u', crc32($this->_class . '->' . $method));
 
 			if(isset($this->_hooks->$hookKey)){
 				$hook = $this->_hooks->$hookKey;

@@ -69,7 +69,7 @@
 		 */
 		private function _addHook($point, $methodNS, $callback)
 		{
-			$methodHash = sprintf('%u', crc32($methodNS));
+			$methodHash = 'hook' .sprintf('%u', crc32($methodNS));
 
 			$this->_registry->get('hooks')->$methodHash = (object)array(
 				'point' => $point,
@@ -94,5 +94,13 @@
 			$request->getRequest();
 
 			var_dump('Completed');
+		}
+
+		public function benchmark()
+		{
+			return '<pre>'.print_r(array(
+				'runtime: ' . (microtime(true) - $this->_registry->get('benchmark')) . ' Seconds',
+				'memory: ' . ((memory_get_usage(true) - $this->_registry->get('memory')) / 1000) . ' kb',
+			), true).'</pre>';
 		}
 	}

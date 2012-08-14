@@ -2,5 +2,4 @@
 	--coverage-html ./coverage/ \
 	--colors \
 	--strict \
-	--repeat 10 \
-	./Koala/RegistryTest.php
+	./Koala/HookerTest.php
