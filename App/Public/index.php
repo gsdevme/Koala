@@ -13,15 +13,21 @@
 		'mode' => 'debug'
 	));
 
-	$classMap = new \Koala\ClassMap($registry);
-	$classMap->addPrefix('Zend_', 'Libraries/', true);
 
-	// lets test we can use Zends json... not that we want it .. Yuk!
-	$x = Zend_Json::encode(array('foo' => 1));
+	/**
+	 * Class Map Test
+	 *
+	 *
+	 * $classMap = new \Koala\ClassMap($registry);
+	 * $classMap->addPrefix('Zend_', 'Libraries/', true);
+	* // lets test we can use Zends json... not that we want it .. Yuk!
+	* $x = Zend_Json::encode(array('foo' => 1));
+	* if($x == '{"foo":1}'){
+	* 	echo '<pre>' . print_r('Zends JSON loaded correct', true) . '</pre>' . PHP_EOL;
+	* }
+	 *
+	 */
 
-	if($x == '{"foo":1}'){
-		echo '<pre>' . print_r('Zends JSON loaded correct', true) . '</pre>' . PHP_EOL;
-	}
 
 	// Pass $_SERVER, the ability to pass the $_SERVERS help you mock stuff, if NULL it will grab $_SERVER
 	$environment = new \Koala\Environment($_SERVER);
@@ -37,3 +43,5 @@
 	$request = new \Koala\Http\Request($environment);
 
 	$app->run($request);
+
+	echo $app->benchmark();
