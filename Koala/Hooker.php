@@ -17,7 +17,10 @@
 		private $_class;
 
 		/**
-		 * [__construct description]
+		 * Ensures the $instance is hookable, and ther user
+		 * is awhere its hookable by enforcing the interface.
+		 *
+		 * Grabs the registry so we can pull out of the hooks
 		 *
 		 * @param Hooker   $instance
 		 * @param Registry $registry

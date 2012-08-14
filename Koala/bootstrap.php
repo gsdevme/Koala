@@ -19,11 +19,11 @@
 			}
 		}, true);
 
-		// Some keys files, everything is required for any bit of Koala to work
-		require_once $root . 'Koala/Interfaces/Singleton.php';
-		require_once $root . 'Koala/Interfaces/Registry.php';
-		require_once $root . 'Koala/Interfaces/Hookable.php';
-		require_once $root . 'Koala/Interfaces/Http/Request.php';
+		// Some key files, everything is required for any bit of Koala to work
+		require $root . 'Koala/Interfaces/Singleton.php';
+		require $root . 'Koala/Interfaces/Registry.php';
+		require $root . 'Koala/Interfaces/Hookable.php';
+		require $root . 'Koala/Interfaces/Http/Request.php';
 
 		// Real programming erors
 		set_error_handler(function($errno, $errstr, $errfile, $errline ) {
@@ -32,7 +32,6 @@
 
 		// This is if its a CLI, just to stop defined Errors
 		if (!isset($_SERVER['HTTP_HOST'])) {
-			$_SERVER['REQUEST_URI'] = null;
 			$_SERVER['HTTP_HOST'] = null;
 		}
 

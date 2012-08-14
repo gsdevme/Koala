@@ -37,4 +37,3 @@
 	$request = new \Koala\Http\Request($environment);
 
 	$app->run($request);
-
