@@ -24,6 +24,8 @@
 		public function __construct(Interfaces\Registry $registry)
 		{
 			$this->_root = $registry->get('root');
+			$this->_map = array();
+			$this->_prefixMap = array();
 
 			spl_autoload_register(array($this, '_autoloader'), true);
 		}
