@@ -13,7 +13,6 @@
 		'mode' => 'debug'
 	));
 
-
 	/**
 	 * Class Map Test
 	 *
@@ -30,14 +29,14 @@
 
 
 	// Pass $_SERVER, the ability to pass the $_SERVERS help you mock stuff, if NULL it will grab $_SERVER
-	$environment = new \Koala\Environment($_SERVER);
+	$environment = \Koala\Environment::getInstance($_SERVER);
 
 	/**
 	 * Hook example
 	 */
-	$app->hook('after://Koala\Http\Request->getRequest', function($request){
+	/*$app->hook('after://Koala\Http\Request->getRequest', function($request){
 		echo '<pre>' . print_r('You have just been hooked ' . $request, true) . '</pre>' . PHP_EOL;
-	});
+	});*/
 
 	// Pass the environment to the request
 	$request = new \Koala\Http\Request($environment);

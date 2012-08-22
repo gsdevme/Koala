@@ -1,0 +1,11 @@
+{
+	"name": "Koala/Koala",
+	"require": {
+		"php": ">=5.3.3"
+	},
+	 "autoload": {
+		"psr-0": {
+			"Koala": "vendor"
+		}
+	}
+}
