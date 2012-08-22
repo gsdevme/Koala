@@ -1,5 +1,5 @@
 {
-	"name": "Koala/Koala",
+	"name": "koala/koala",
 	"require": {
 		"php": ">=5.3.3"
 	},
