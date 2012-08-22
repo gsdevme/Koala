@@ -11,6 +11,7 @@
 	class Environment implements ArrayAccess
 	{
 
+		private static $_instance;
 		private $_defaults = array(
 			'SCRIPT_NAME' => '',
 			'REQUEST_METHOD' => 'GET',
@@ -32,8 +33,6 @@
 		{
 			if($environment !== null){
 				$this->_environment = array_merge($this->_defaults, $environment);
-
-				var_dump($this->_environment);
 			}
 		}
 
