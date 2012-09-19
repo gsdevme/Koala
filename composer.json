@@ -1,5 +1,10 @@
 {
 	"name": "koala/koala",
+	"type": "Framework",
+	"description": "Framework designed for use as a REST API/Light MVC application",
+	"keywords": ["MVC","REST","Backbone","API"],
+	"homepage": "https://github.com/gsdevme/Koala",
+	"license": "MIT",
 	"require": {
 		"php": ">=5.3.3"
 	},
