@@ -2,7 +2,7 @@
 
 	namespace tests\Koala;
 
-	require_once realpath(__DIR__) . '/../../Koala/Hooker.php';
+	require_once realpath(__DIR__) . '/../../src/Koala/Hooker.php';
 
 	use \Koala\Hooker;
 

@@ -2,8 +2,8 @@
 
 	namespace tests\Koala;
 
-	require_once realpath(__DIR__) . '/../../Koala/Interfaces/Registry.php';
-	require_once realpath(__DIR__) . '/../../Koala/Registry.php';
+	require_once realpath(__DIR__) . '/../../src/Koala/Interfaces/Registry.php';
+	require_once realpath(__DIR__) . '/../../src/Koala/Registry.php';
 
 	use \Koala\Registry;
 
