@@ -2,4 +2,9 @@
 	--coverage-html ./coverage/ \
 	--colors \
 	--strict \
-	./Koala/HookerTest.php
+	--process-isolation \
+	--debug \
+	--no-globals-backup \
+	--verbose \
+	--test-suffix Test.php \
+	./Koala/

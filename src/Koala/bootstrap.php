@@ -15,6 +15,9 @@
 
 		}
 
+		/**
+		 * @param  string/object $registry
+		 */
 		public static function init($registry='\Koala\Registry')
 		{
 			$root = realpath(__DIR__) . '/../';
@@ -32,16 +35,19 @@
 			// @todo perhaps make some kind of built Interface file save having to grab loads of files
 			require $root . 'Koala/Interfaces/Singleton.php';
 			require $root . 'Koala/Interfaces/Registry.php';
-			require $root . 'Koala/Interfaces/Hookable.php';
+			require $root . 'Koala/Interfaces/Events/Wrappable.php';
 			require $root . 'Koala/Interfaces/Http/Request.php';
 
 			// Real programming erors
 			set_error_handler(function($errno, $errstr, $errfile, $errline ) {
-					throw new \ErrorException($errstr, 0, $errno, $errfile, $errline);
-				});
+				throw new \ErrorException($errstr, 0, $errno, $errfile, $errline);
+			});
 
-			// Fire!! Registry is a-go
-			$registry = $registry::getInstance();
+			// This allows the $registry to be pass as an object
+			if(!is_object($registry)){
+				// Fire!! Registry is a-go
+				$registry = $registry::getInstance();
+			}
 
 			// Some stats for debugging/benchmark
 			$registry->set('benchmark', microtime(true));

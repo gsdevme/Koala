@@ -17,7 +17,7 @@
 		public function __construct(Interfaces\Registry $registry=null)
 		{
 			$this->_registry = $registry;
-			$this->_registry->set('hooks', (object)array());
+			$this->_registry->set('events', (object)array());
 		}
 
 		/**
@@ -37,25 +37,23 @@
 		 * @author github:gsdevme, twitter:@gsphpdev
 		 * @since 0.1 Alpha
 		 *
-		 * @param [type] $hook [description]
-		 * @param function $callback [description]
+		 * @param string $when [description]
+		 * @param string $hook [description]
+		 * @param callback $callback [description]
 		 *
 		 * @return [type]  [description]
 		 */
-		public function hook($hook, $callback)
+		public function event($when, $hook, $callback)
 		{
-			$hookPoint = strtolower(strstr($hook, '://', true));
-
-			switch($hookPoint){
+			switch($when){
 				case 'before':
-					break;
 				case 'after':
 					break;
 				default:
-					throw new InvalidHookPointException('Only before:// and after:// are supported for hook points.');
+					throw new InvalidEventPointException('Only before:// and after:// are supported for hook points.');
 			}
 
-			return $this->_addHook($hookPoint, substr(strstr($hook, '://'), 3), $callback);
+			return $this->_addEvent($when, $hook, $callback);
 		}
 
 		/**
@@ -67,11 +65,11 @@
 		 * @param [type] $methodNS [description]
 		 * @param function $callback [description]
 		 */
-		private function _addHook($point, $methodNS, $callback)
+		private function _addEvent($point, $methodNS, $callback)
 		{
-			$methodHash = 'hook' .sprintf('%u', crc32($methodNS));
+			$methodHash = 'event' .sprintf('%u', crc32($methodNS));
 
-			$this->_registry->get('hooks')->$methodHash = (object)array(
+			$this->_registry->get('events')->$methodHash = (object)array(
 				'point' => $point,
 				'methodNS' => $methodNS,
 				'callback' => $callback
@@ -89,7 +87,7 @@
 		 */
 		public function run(Interfaces\Http\Request $request)
 		{
-			$request = new Hooker($request, $this->_registry);
+			$request = new Events\Wrapper($request, $this->_registry);
 
 			$request->getRequest();
 

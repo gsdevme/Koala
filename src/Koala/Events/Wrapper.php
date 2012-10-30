@@ -1,39 +1,39 @@
 <?php
 
-	namespace Koala;
+	namespace Koala\Events;
 
 	/**
-	 * This is how the Hooks work, basically a class
-	 * infront of every hookable class
+	 * This is how the Events work, basically a class
+	 * infront of every Wrappable class
 	 */
-	class Hooker
+	class Wrapper
 	{
 
 		const AFTER='after';
 		const BEFORE='before';
 
 		private $_object;
-		private $_hooks;
+		private $_events;
 		private $_class;
 
 		/**
-		 * Ensures the $instance is hookable, and ther user
-		 * is awhere its hookable by enforcing the interface.
+		 * Ensures the $instance is Wrappable, and ther user
+		 * is awhere its Wrappable by enforcing the interface.
 		 *
-		 * Grabs the registry so we can pull out of the hooks
+		 * Grabs the registry so we can pull out of the events
 		 *
-		 * @param Hooker   $instance
+		 * @param Wrappable   $instance
 		 * @param Registry $registry
 		 */
-		public function __construct(Interfaces\Hookable $instance, Interfaces\Registry $registry)
+		public function __construct(\Koala\Interfaces\Events\Wrappable $instance, \Koala\Interfaces\Registry $registry)
 		{
 			$this->_object = $instance;
 
 			// gets the class name
 			$this->_class = get_class($instance);
 
-			// Copies all the hooks into the hooker instance
-			$this->_hooks = $registry->get('hooks');
+			// Copies all the events into the Wrapper instance
+			$this->_events = $registry->get('events');
 		}
 
 		/**
@@ -46,18 +46,19 @@
 		public function __call($method, array $arguments)
 		{
 			// Create a checksum
-			$hookKey = 'hook' . sprintf('%u', crc32($this->_class . '->' . $method));
+			$eventKey = 'event' . sprintf('%u', crc32($this->_class . '->' . $method));
 
-			if(isset($this->_hooks->$hookKey)){
-				$hook = $this->_hooks->$hookKey;
-				$hookPoint = $hook->point;
+			if(isset($this->_events->$eventKey)){
+
+				$event = $this->_events->$eventKey;
+				$eventPoint = $event->point;
 
 				/**
-				 * @todo this needs to change to allow multiple hooks and allow both Before & After
+				 * @todo this needs to change to allow multiple events and allow both Before & After
 				 */
-				if($hookPoint == Hooker::AFTER){
+				if($eventPoint == self::AFTER){
 					$return = call_user_func_array(array($this->_object, $method), $arguments);
-					$callback = $hook->callback;
+					$callback = $event->callback;
 
 					return $callback($return);
 				}

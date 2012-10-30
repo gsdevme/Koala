@@ -4,7 +4,7 @@
 
 	use \Koala\Interfaces;
 
-	class Request implements Interfaces\Hookable, Interfaces\Http\Request
+	class Request implements Interfaces\Events\Wrappable, Interfaces\Http\Request
 	{
 
 		public function __construct()

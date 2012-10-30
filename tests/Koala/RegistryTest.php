@@ -54,8 +54,7 @@
 				array('integer', 7),
 				array('string', 'Hello World!'),
 				array('array', array(1,2,3)),
-				array('binary', (binary)'Foobar'),
-				array('callable', (function(){ return 'Hello World'; })),
+				array('binary', (binary)'Foobar')
 			);
 		}
 	}
